@@ -9,15 +9,16 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { useInputValidation } from "6pp";
+import { useInputValidation,useStrongPassword } from "6pp";
 import { CameraAlt as CameraAltIcon } from "@mui/icons-material";
 import { VisuallyHiddenInput } from "../component/styled/StyledComponent";
+import { userNameValidator } from "../utils/validators";
 
 const Login = () => {
   const [isLogin, setisLogin] = useState(true);
   const name = useInputValidation("");
-  const userName = useInputValidation("");
-  const password = useInputValidation("");
+  const userName = useInputValidation("", userNameValidator);
+  const password = useStrongPassword();
   const bio = useInputValidation("");
   return (
     <Container
@@ -126,7 +127,9 @@ const Login = () => {
                 onChange={userName.changeHandler}
               />
               {userName.error && (
-                <Typography color="error" varient="caption"></Typography>
+                <Typography color="error" varient="caption">
+                  {userName.error}
+                </Typography>
               )}
               <TextField
                 required
@@ -138,6 +141,11 @@ const Login = () => {
                 value={password.value}
                 onChange={password.changeHandler}
               />
+              {password.error && (
+                <Typography color="error" varient="caption">
+                  {password.error}
+                </Typography>
+              )}
               <TextField
                 required
                 fullWidth

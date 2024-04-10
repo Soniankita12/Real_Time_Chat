@@ -1,6 +1,9 @@
+import { isValidUsername } from "6pp";
+
 export const userNameValidator = (userName) => {
-  return {
-    isValid: false,
-    errorMessage: "Username is invalid",
-  };
+  if (!isValidUsername(userName))
+    return {
+      isValid: false,
+      errorMessage: "Username is invalid",
+    };
 };
