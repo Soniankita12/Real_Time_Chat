@@ -9,12 +9,16 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import { useInputValidation } from "6pp";
 import { CameraAlt as CameraAltIcon } from "@mui/icons-material";
 import { VisuallyHiddenInput } from "../component/styled/StyledComponent";
 
 const Login = () => {
   const [isLogin, setisLogin] = useState(true);
-
+  const name = useInputValidation("");
+  const userName = useInputValidation("");
+  const password = useInputValidation("");
+  const bio = useInputValidation("");
   return (
     <Container
       component={"main"}
@@ -43,6 +47,8 @@ const Login = () => {
                 varient="outlined"
                 label="Username"
                 margin="normal"
+                value={name.value}
+                onChange={name.changeHandler}
               />
               <TextField
                 required
@@ -51,6 +57,8 @@ const Login = () => {
                 varient="outlined"
                 label="Password"
                 margin="normal"
+                value={password.value}
+                onChange={password.changeHandler}
               />
               <Button
                 sx={{ marginTop: "1rem" }}
@@ -83,7 +91,16 @@ const Login = () => {
                 <Avatar
                   sx={{ width: "10rem", height: "10rem", objectFit: "contain" }}
                 />
-                <IconButton>
+                <IconButton
+                  sx={{
+                    position: "absolute",
+                    bottom: "0",
+                    right: "0",
+                    color: "white",
+                    bgcolor: "rgba(0, 0, 0, 0.5)",
+                    ":hover": { bgcolor: "rgba(0,0,0,0.7" },
+                  }}
+                  component="label">
                   <>
                     <CameraAltIcon />
                     <VisuallyHiddenInput type="file" />
@@ -96,6 +113,8 @@ const Login = () => {
                 varient="outlined"
                 label="Name"
                 margin="normal"
+                value={name.value}
+                onChange={name.changeHandler}
               />
               <TextField
                 required
@@ -103,7 +122,12 @@ const Login = () => {
                 varient="outlined"
                 label="Username"
                 margin="normal"
+                value={userName.value}
+                onChange={userName.changeHandler}
               />
+              {userName.error && (
+                <Typography color="error" varient="caption"></Typography>
+              )}
               <TextField
                 required
                 fullWidth
@@ -111,6 +135,8 @@ const Login = () => {
                 varient="outlined"
                 label="Password"
                 margin="normal"
+                value={password.value}
+                onChange={password.changeHandler}
               />
               <TextField
                 required
@@ -118,6 +144,8 @@ const Login = () => {
                 varient="outlined"
                 label="Bio"
                 margin="normal"
+                value={bio.value}
+                onChange={bio.changeHandler}
               />
               <Button
                 sx={{ marginTop: "1rem" }}
