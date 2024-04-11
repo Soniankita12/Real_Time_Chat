@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { useInputValidation,useStrongPassword } from "6pp";
+import { useFileHandler, useInputValidation, useStrongPassword } from "6pp";
 import { CameraAlt as CameraAltIcon } from "@mui/icons-material";
 import { VisuallyHiddenInput } from "../component/styled/StyledComponent";
 import { userNameValidator } from "../utils/validators";
@@ -20,6 +20,8 @@ const Login = () => {
   const userName = useInputValidation("", userNameValidator);
   const password = useStrongPassword();
   const bio = useInputValidation("");
+  const avatar = useFileHandler("single");
+
   return (
     <Container
       component={"main"}
@@ -90,7 +92,7 @@ const Login = () => {
             <form style={{ width: "100%", marginTop: "1rem" }}>
               <Stack position={"relative"} width={"10rem"} margin={"auto"}>
                 <Avatar
-                  sx={{ width: "10rem", height: "10rem", objectFit: "contain" }}
+                  sx={{ width: "10rem", height: "10rem", objectFit: "contain" }} src={avatar.preview}
                 />
                 <IconButton
                   sx={{
@@ -104,7 +106,7 @@ const Login = () => {
                   component="label">
                   <>
                     <CameraAltIcon />
-                    <VisuallyHiddenInput type="file" />
+                    <VisuallyHiddenInput type="file" onChange={avatar.changeHandler} />
                   </>
                 </IconButton>
               </Stack>
