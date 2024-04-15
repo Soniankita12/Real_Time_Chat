@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "../src/component/auth/ProtectRoute";
+import { LoaderLayout } from "./component/layout/Loaders";
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
 const Groups = lazy(() => import("./pages/Groups"));
@@ -13,14 +14,14 @@ const App = () => {
       <Routes>
         <Route
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<LoaderLayout />}>
               <ProtectedRoute user={user} />
             </Suspense>
           }>
           <Route
             path="/"
             element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<LoaderLayout />}>
                 <Home />
               </Suspense>
             }
@@ -29,7 +30,7 @@ const App = () => {
           <Route
             path="/chat/:chatId"
             element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<LoaderLayout />}>
                 <Chat />
               </Suspense>
             }
@@ -37,7 +38,7 @@ const App = () => {
           <Route
             path="/groups/:groupId"
             element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<LoaderLayout />}>
                 <Groups />
               </Suspense>
             }
@@ -46,7 +47,7 @@ const App = () => {
         <Route
           path="/login"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<LoaderLayout />}>
               <ProtectedRoute user={!user} redirect="/">
                 <Login />
               </ProtectedRoute>
@@ -56,7 +57,7 @@ const App = () => {
         <Route
           path="*"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<LoaderLayout />}>
               <NotFound />
             </Suspense>
           }

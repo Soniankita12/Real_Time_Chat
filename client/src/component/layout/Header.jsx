@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Backdrop,
   Box,
   IconButton,
   Toolbar,
@@ -16,8 +17,11 @@ import {
   Notifications as NotificationsIcon,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import Search from "../specific/Seach";
+import { lazy, Suspense, useState } from "react";
+import { LoaderLayout } from "./Loaders";
+const Search = lazy(() => import("../specific/Search"));
+const Notifications = lazy(() => import("../specific/Notifications"));
+const NewGroups = lazy(() => import("../specific/NewGroups"));
 
 const Header = () => {
   const navigate = useNavigate();
@@ -94,8 +98,21 @@ const Header = () => {
           </Toolbar>
         </AppBar>
       </Box>
-      {isSearch && <Search />}
-      {/* he has done searchdialog */}
+      {isSearch && (
+        <Suspense fallback={<Backdrop open />}>
+          <Search />
+        </Suspense>
+      )}
+      {isNotification && (
+        <Suspense fallback={<Backdrop open />}>
+          <Notifications />
+        </Suspense>
+      )}
+      {isNewGroup && (
+        <Suspense fallback={<Backdrop open />}>
+          <NewGroups />
+        </Suspense>
+      )}
     </>
   );
 };
